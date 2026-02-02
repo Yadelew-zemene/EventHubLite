@@ -160,3 +160,4 @@ C:\Users\hp\Desktop\EventHubLite\eventhub-backend\EventHub.Api\bin\Debug\net10.0
 C:\Users\hp\Desktop\EventHubLite\eventhub-backend\EventHub.Api\bin\Debug\net10.0\Npgsql.dll
 C:\Users\hp\Desktop\EventHubLite\eventhub-backend\EventHub.Api\bin\Debug\net10.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\hp\Desktop\EventHubLite\eventhub-backend\EventHub.Api\bin\Debug\net10.0\BCrypt.Net-Next.dll
+C:\Users\hp\Desktop\EventHubLite\eventhub-backend\EventHub.Api\obj\Debug\net10.0\EventHub.Api.sourcelink.json
