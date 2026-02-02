@@ -1,0 +1,22 @@
+ @EventHub.Api_HostAddress = http://localhost:5188
+ GET  http://localhost:5188/
+###
+GET http://localhost:5188/test-users
+###
+ 
+POST http://localhost:5188/auth/register
+  Content-Type: application/json
+
+{
+"FullName":"Yadelew Zemene",
+"Email":"yadelewzemene@gmail.com",
+"Password":"12345678"
+ }
+###
+POST http://localhost:5188/auth/login
+  Content-Type: application/json
+  
+{
+"Email":"yadelewzemene@gmail.com",
+"Password":"12345678"
+ }
