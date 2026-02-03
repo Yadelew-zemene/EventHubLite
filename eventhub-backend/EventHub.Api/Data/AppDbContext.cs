@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using EventHub.Api.Entities.User;
+using EventHub.Api.Entities;
+using EventHub.Api.Entities;
 
 namespace EventHub.Api.Data;
 
@@ -9,4 +10,5 @@ public class AppDbContext : DbContext
         : base(options) { }
 
     public DbSet<User> Users => Set<User>();
+    public DbSet<Event> Events => Set<Event>();
 }

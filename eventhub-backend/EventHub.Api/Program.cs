@@ -1,16 +1,15 @@
 using EventHub.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using EventHub.Api.Dtos;
-using EventHub.Api.Entities.User;
-// using EventHub.Api.Entities;
+using EventHub.Api.Entities;
 using EventHub.Api.Services;
-// using System.Net.Http;
-// using BCrypt.Net;
-// using Microsoft.AspNetCore.Cors.Infrastructure;
-// using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+
 
 
 
@@ -103,16 +102,51 @@ app.MapPost("/auth/login", async (LoginDto dto, AppDbContext db, JwtService jwtS
     return Results.Ok(
    new
    {
-    loginUser.Id,
+       loginUser.Id,
        loginUser.FullName,
        loginUser.Email,
        token
    }
     );
 
-   
+
 
 });
+app.MapGet("/me", [Authorize] (ClaimsPrincipal user) =>
+{
+    return new
+    {
+        Email = user.FindFirst(ClaimTypes.Email)?.Value,
+        Role = user.FindFirst(ClaimTypes.Role)?.Value
+    };
+});
+app.MapPost("/admin/only",
+    [Authorize(Roles = "Admin")] () =>
+{
+    return "Welcome Admin";
+});
+app.MapPost("/events",
+[Authorize(Roles = "Organizer,Admin")]
+async (CreateEventDto dto, AppDbContext db, ClaimsPrincipal user) =>
+{
+    var userId = Guid.Parse(user.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
+    var ev = new Event
+    {
+        Title = dto.Title,
+        Description = dto.Description,
+        Date = dto.Date,
+        OrganizerId = userId
+    };
+
+    db.Events.Add(ev);
+    await db.SaveChangesAsync();
+
+    return Results.Ok(ev);
+});
+
+
+
 app.UseAuthentication();
 app.UseAuthorization();
 // ---------- Run ----------

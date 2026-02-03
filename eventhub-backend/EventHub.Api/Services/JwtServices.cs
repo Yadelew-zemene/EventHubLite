@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using EventHub.Api.Entities.User;
+using EventHub.Api.Entities;
 
 namespace EventHub.Api.Services;
 
@@ -15,14 +15,14 @@ public class JwtService
         _config = config;
     }
 
-    public string GenerateToken(User user)
+    public string GenerateToken(Entities.User user)
     {
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email)
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim(ClaimTypes.Role,user.Role)
         };
-
         var key = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(_config["Jwt:Key"]!)
         );

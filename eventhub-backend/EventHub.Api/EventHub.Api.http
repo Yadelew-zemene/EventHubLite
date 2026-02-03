@@ -8,9 +8,11 @@ POST http://localhost:5188/auth/register
   Content-Type: application/json
 
 {
-"FullName":"Yadelew Zemene",
+"FullName":"Yadelew",
 "Email":"yadelewzemene@gmail.com",
-"Password":"12345678"
+"Password":"12345678910",
+"Role":"Organizer"
+
  }
 ###
 POST http://localhost:5188/auth/login
@@ -18,5 +20,15 @@ POST http://localhost:5188/auth/login
   
 {
 "Email":"yadelewzemene@gmail.com",
-"Password":"12345678"
+"Password":"12345678910"
+ }
+###
+POST http://localhost:5188/events
+ Content-Type: application/json
+
+ {
+  "title":"Tech Guides",
+  "Discription":"Helping the persons to move toward tech movements",
+   "date":"2026-2-24",
+   "userId":"019c1d16-4985-7aca-a88d-7644c5eac5cb"
  }
